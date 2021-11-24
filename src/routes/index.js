@@ -8,6 +8,7 @@ import { API, setAuthToken } from "../config/api";
 
 import PageNotFound from "../components/PageNotFound";
 import Landing from "../pages/user/Landing";
+import Home from "../pages/user/Home";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -72,6 +73,7 @@ const Router = () => {
     <Switch>
       <Route path="/" exact component={Landing} />
       <Route path="/404" exact component={PageNotFound} />
+      <Route path="/home" exact component={Home} />
       {/* <PrivateRoute path="/profile" exact component={Profile} />
       <PrivateRoute path="/chart" exact component={Chart} />
       <Route path="/trip/:id" exact component={DetailTrip} />

@@ -2,6 +2,10 @@
   min-height: 100vh;
 }
 
+.navbar-user {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .header {
     font-family: 'Times New Roman', Times, serif;
     margin-top: 10vh;
@@ -9,4 +13,8 @@
 
 h1.jumbotron {
     font: bold 80px/100px Times, serif;
+}
+
+.search {
+  margin-top: -10;
 }
