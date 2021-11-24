@@ -1,0 +1,12 @@
+.main {
+  min-height: 100vh;
+}
+
+.header {
+    font-family: 'Times New Roman', Times, serif;
+    margin-top: 10vh;
+}
+
+h1.jumbotron {
+    font: bold 80px/100px Times, serif;
+}
