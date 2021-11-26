@@ -91,7 +91,7 @@ function Signup() {
                 <div className="row text-center mt-3 mx-2">
                   <div className="col text-light">
                     <input
-                      class="form-control "
+                      class="form-control bg-secondary "
                       type="text"
                       value={fullname}
                       name="fullname"
