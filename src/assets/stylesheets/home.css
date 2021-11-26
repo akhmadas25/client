@@ -18,3 +18,8 @@ h1.jumbotron {
 .search {
   margin-top: -10;
 }
+
+input:placeholder-shown {
+  background-color:  #ffffff!important;
+  color: #ffffff !important;
+}

@@ -1,9 +1,13 @@
-import React from "react";
+import React, {useContext} from "react";
 import "../../assets/stylesheets/home.css";
 import book from "../../assets/image/book.png";
 import logo from "../../assets/image/icon.png";
+import Signup from "../../components/auth/Signup";
+import Login from "../../components/auth/Login";
+import { UserContext } from "../../context/userContext";
 
 function Landing() {
+  
   return (
     <div className="container-fluid text-light bg-dark main">
       <div className="container">
@@ -14,10 +18,13 @@ function Landing() {
               <h1 className="jumbotron">
                 source <i> of </i> intellegence
               </h1>
+              <h2>
+              Sign-up and receive unlimited accesss to all of your literatur - share your literature.
+              </h2>
             </div>
             <div className="sign-button mt-5">
-              <button className="btn btn-danger text-lght px-5">Sign Up</button>
-              <button className="btn btn-light px-5 ms-5">Sign In</button>
+              <Signup />
+              <Login />
             </div>
           </div>
           <div className="col">

@@ -9,6 +9,11 @@ import { API, setAuthToken } from "../config/api";
 import PageNotFound from "../components/PageNotFound";
 import Landing from "../pages/user/Landing";
 import Home from "../pages/user/Home";
+import Literaturs from "../pages/admin/Literaturs";
+import AddLiteratur from "../pages/user/AddLiteratur";
+import Collection from "../pages/user/Collection";
+import DetailLiteratur from "../pages/user/DetailLiteratur";
+import SearchPage from "../pages/user/SearchPage";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -18,10 +23,6 @@ const Router = () => {
   let history = useHistory();
   const [state, dispatch] = useContext(UserContext);
   console.clear();
-
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
 
   const checkUser = async () => {
     try {
@@ -33,13 +34,13 @@ const Router = () => {
           type: "AUTH_ERROR",
         });
       }
-
+      console.log(response);
       // Get user data
       let payload = response.data.data;
 
       // Get token from local storage
       payload.token = localStorage.token;
-      if (payload.role === "admin") {
+      if (payload.status === "admin") {
         dispatch({
           type: "ADMIN_SUCCESS",
           payload,
@@ -61,29 +62,19 @@ const Router = () => {
   useEffect(() => {
     checkUser();
   }, []);
+  console.log(state);
 
-  if (state.isLoading) {
-    return (
-      <>
-        <p>loading</p>
-      </>
-    );
-  }
   return (
     <Switch>
       <Route path="/" exact component={Landing} />
       <Route path="/404" exact component={PageNotFound} />
       <Route path="/home" exact component={Home} />
-      {/* <PrivateRoute path="/profile" exact component={Profile} />
-      <PrivateRoute path="/chart" exact component={Chart} />
-      <Route path="/trip/:id" exact component={DetailTrip} />
-      <AdminRoute path="/admin" exact component={Index} />
-      <AdminRoute
-        path="/admin/list-transaction"
-        exact
-        component={ListTransaction}
-      />
-      <AdminRoute path="/admin/add-trip" exact component={AddTrip} /> */}
+      <Route path="/admin/literaturs" exact component={Literaturs} />
+      <Route path="/addLiteratur" exact component={AddLiteratur} />
+      <Route path="/myCollection" exact component={Collection} />
+      <Route path="/detail" exact component={DetailLiteratur} />
+      <Route path="/search" exact component={SearchPage} />
+      
     </Switch>
   );
 };

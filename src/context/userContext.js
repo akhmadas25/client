@@ -50,7 +50,7 @@ const reducer = (state, action) => {
 
 export const UserContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  useEffect(() => [state]);
+  
   return (
     <UserContext.Provider value={[state, dispatch]}>
       {children}
