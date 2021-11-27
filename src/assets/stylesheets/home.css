@@ -31,3 +31,7 @@ input:placeholder-shown {
   background-color:  #ffffff!important;
   color: #ffffff !important;
 }
+
+.card {
+  background:rgba(255,255,255, 0.1);
+}

@@ -3,8 +3,8 @@ import React, { useContext, useEffect } from "react";
 import logo from "../assets/image/icon.png";
 import { UserContext } from "../context/userContext";
 import { useHistory } from "react-router";
-import logout from "../assets/icon/logout.png"
-import "../assets/stylesheets/home.css"
+import logout from "../assets/icon/logout.png";
+import "../assets/stylesheets/home.css";
 
 function Navbar() {
   const history = useHistory();
@@ -43,7 +43,7 @@ function Navbar() {
             >
               <li>
                 <a class="dropdown-item" onClick={Logout}>
-                  <img src={logout} style={{height: 20}} className="me-2" />
+                  <img src={logout} style={{ height: 20 }} className="me-2" />
                   Sign out
                 </a>
               </li>
@@ -57,17 +57,13 @@ function Navbar() {
       <nav class="navbar navbar-user navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
           <div class="navbar-nav">
-            <a class="nav-link">Profile</a>
-            <a
-              class="nav-link"
-              onClick={() => history.push("/myCollection")}
-            >
+            <a class="nav-link" onClick={() => history.push("/profile")}>
+              Profile
+            </a>
+            <a class="nav-link" onClick={() => history.push("/myCollection")}>
               My Collection
             </a>
-            <a
-              class="nav-link"
-              onClick={() => history.push("/addLiteratur")}
-            >
+            <a class="nav-link" onClick={() => history.push("/addLiteratur")}>
               Add Literatur
             </a>
             <a class="nav-link" onClick={Logout}>
