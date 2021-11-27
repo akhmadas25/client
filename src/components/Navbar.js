@@ -4,6 +4,7 @@ import logo from "../assets/image/icon.png";
 import { UserContext } from "../context/userContext";
 import { useHistory } from "react-router";
 import logout from "../assets/icon/logout.png"
+import "../assets/stylesheets/home.css"
 
 function Navbar() {
   const history = useHistory();
@@ -23,7 +24,6 @@ function Navbar() {
           </div>
           <div class="dropdown me-5">
             <a
-              href="#"
               class="text-decoration-none dropdown-toggle"
               id="dropdownUser1"
               data-bs-toggle="dropdown"
@@ -57,20 +57,20 @@ function Navbar() {
       <nav class="navbar navbar-user navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
           <div class="navbar-nav">
-            <a class="nav-link active">Profile</a>
+            <a class="nav-link">Profile</a>
             <a
-              class="nav-link active"
+              class="nav-link"
               onClick={() => history.push("/myCollection")}
             >
               My Collection
             </a>
             <a
-              class="nav-link active"
+              class="nav-link"
               onClick={() => history.push("/addLiteratur")}
             >
               Add Literatur
             </a>
-            <a class="nav-link active" onClick={Logout}>
+            <a class="nav-link" onClick={Logout}>
               Logout
             </a>
           </div>

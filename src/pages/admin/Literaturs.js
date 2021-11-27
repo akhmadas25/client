@@ -1,9 +1,106 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
-import { UserContext } from "../../context/userContext";
 import "../../assets/stylesheets/table.css";
+import { API } from "../../config/api";
+import swal from "sweetalert";
+import { Action } from "../../components/Action";
 
 function Literaturs() {
+  const [literaturs, setLiteraturs] = useState();
+  const getLiteraturs = async () => {
+    try {
+      const response = await API.get("/literaturs");
+
+      setLiteraturs(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const Status = ({ item }) => {
+    if (item.status === "verified") {
+      return <p className="alert-success">{item.status}</p>;
+    } else if (item.status === "waiting for verified") {
+      return <p className="alert-warning">{item.status}</p>;
+    } else {
+      return <p className="alert-danger">{item.status}</p>;
+    }
+  };
+
+  // const Action = ({ item }) => {
+  //   if (item.status === "verified") {
+  //     return <i class="fas fa-check-circle fa-2x text-success"></i>;
+  //   } else if (item.status === "waiting for verified") {
+  //     return (
+  //       <>
+  //         <button
+  //           type="button"
+  //           className="btn btn-danger px-3 text-light"
+  //           onClick={handleAprove(item)}
+  //         >
+  //           cancel
+  //         </button>
+  //         <button
+  //           type="button"
+  //           className="btn btn-success px-3 ms-3 text-light"
+  //           onClick={handleCancel(item)}
+  //         >
+  //           aprove
+  //         </button>
+  //       </>
+  //     );
+  //   } else if (item.status === "cancel") {
+  //     return <i class="fas fa-times-circle text-danger fa-2x"></i>;
+  //   }
+  // };
+
+  const updateLiteraturs = async () => {
+    const response = await API.get("/literaturs");
+
+    setLiteraturs(response.data.data);
+  };
+
+  // const handleAprove = async () => {
+  //   try {
+  //     const id = item.id;
+  //     const data = { status: "verified" };
+
+  //     const config = {
+  //       headers: {
+  //         "Content-type": "application/json",
+  //       },
+  //     };
+  //     const body = JSON.stringify(data);
+  //     await API.patch(`/literatur/${id}`, body, config);
+  //     updateLiteraturs();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  // const handleCancel = async () => {
+  //   try {
+  //     const id = item.id;
+  //     const data = { status: "cancel" };
+
+  //     const config = {
+  //       headers: {
+  //         "Content-type": "application/json",
+  //       },
+  //     };
+  //     const body = JSON.stringify(data);
+  //     await API.patch(`/literatur/${id}`, body, config);
+  //     updateLiteraturs();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  useEffect(() => {
+    getLiteraturs();
+    updateLiteraturs();
+  }, []);
+
   return (
     <div className="container-fluid main px-0">
       <Navbar />
@@ -25,28 +122,23 @@ function Literaturs() {
             <th>Status</th>
             <th>Action</th>
           </thead>
-          <tbody>
-            <tr className="text-center">
-              <td>user</td>
-              <td>0834562563</td>
-              <td className="text-primary">Sistem Informasi Berbasis Web</td>
-              <td>waiting for verified</td>
-              <td className="text-center">
-                <button
-                  type="button"
-                  className="btn btn-danger px-3 text-light"
-                >
-                  cancel
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-success px-3 ms-3 text-light"
-                >
-                  aprove
-                </button>
-              </td>
-            </tr>
-          </tbody>
+          {literaturs?.map((item, index) => (
+            <tbody item={item} key={index}>
+              <tr className="text-center">
+                <td>{item.author}</td>
+                <td>{item.ISBN}</td>
+                <td>
+                  <p className="text-primary">{item.title}</p>
+                </td>
+                <td>
+                  <Status item={item} />
+                </td>
+                <td className="text-center">
+                  <Action item={item} />
+                </td>
+              </tr>
+            </tbody>
+          ))}
         </table>
       </div>
     </div>
