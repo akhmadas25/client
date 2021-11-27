@@ -1,5 +1,4 @@
 import { createContext, useReducer, useEffect } from "react";
-import { Redirect } from "react-router";
 
 export const UserContext = createContext();
 
@@ -25,6 +24,7 @@ const reducer = (state, action) => {
       return {
         isLoading: false,
         isLogin: true,
+        isAdmin: false,
         user: payload,
       };
     case "ADMIN_SUCCESS":
@@ -50,7 +50,10 @@ const reducer = (state, action) => {
 
 export const UserContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  
+  useEffect(() => {
+    console.log(state);;
+  }, []);
+
   return (
     <UserContext.Provider value={[state, dispatch]}>
       {children}

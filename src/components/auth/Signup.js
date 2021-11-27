@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import swal from "sweetalert";
 import { UserContext } from "../../context/userContext";
@@ -53,8 +53,8 @@ function Signup() {
         button: "ok",
       });
       // Status check
-      if (response.data.data.role === "admin") {
-        history.push("/admin/literatur");
+      if (response.data.data.status === "admin") {
+        history.push("/admin/literaturs");
       } else {
         history.push("/home");
       }
@@ -62,6 +62,10 @@ function Signup() {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    console.log(state);
+  }, []);
 
   return (
     <>
@@ -83,10 +87,11 @@ function Signup() {
       >
         <div class="modal-dialog">
           <div class="modal-content bg-dark text-light">
-            <form onSubmit={handleSubmit}>
-              <div class="modal-body">
+            <div class="modal-body">
+              <form onSubmit={handleSubmit}>
                 <div class="modal-header">
                   <h3>Sign Up</h3>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div className="row text-center mt-3 mx-2">
                   <div className="col text-light">
@@ -132,18 +137,18 @@ function Signup() {
                     />
                   </div>
                 </div>
-              </div>
-
-              <div className="text-center my-3">
-                <button
-                  type="submit"
-                  class="btn btn-danger"
-                  style={{ width: 430 }}
-                >
-                  Sign Up
-                </button>
-              </div>
-            </form>
+                <div className="text-center my-3">
+                  <button
+                    type="submit"
+                    class="btn btn-danger"
+                    data-bs-dismiss="modal" aria-label="Close"
+                    style={{ width: 430 }}
+                  >
+                    Sign Up
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>

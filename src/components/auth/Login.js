@@ -55,11 +55,11 @@ function Login() {
       }
     } catch (error) {
       console.log(error);
-    //   swal({
-    //     title: "incorrect",
-    //     text: "email or password doesn't match",
-    //     icon: "warning",
-    //   });
+      swal({
+        title: "incorrect",
+        text: "email or password doesn't match",
+        icon: "warning",
+      });
     }
   };
 
@@ -79,16 +79,22 @@ function Login() {
       <div class="modal fade" id="ModalLogin" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content bg-dark text-light">
-            <form onSubmit={handleSubmit}>
-              <div class="modal-body">
-                <div class="modal-header">
-                  <h3>Sign In</h3>
-                </div>
+            <div class="modal-body">
+              <div class="modal-header">
+                <h3>Sign In</h3>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <form onSubmit={handleSubmit}>
                 <div className="row text-center mt-3 mx-2">
                   <div className="col">
                     <input
                       class="form-control bg-secondary"
-                      type="text"
+                      type="email"
                       value={email}
                       name="email"
                       onChange={onChange}
@@ -104,19 +110,20 @@ function Login() {
                     />
                   </div>
                 </div>
-              </div>
-
-              <div className="text-center my-3">
-                <button
-                  type="button"
-                  type="submit"
-                  class="btn btn-danger px-5"
-                  style={{ width: 430 }}
-                >
-                  Login
-                </button>
-              </div>
-            </form>
+                <div className="text-center my-3">
+                  <button
+                    type="button"
+                    type="submit"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                    class="btn btn-danger px-5"
+                    style={{ width: 430 }}
+                  >
+                    Login
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>

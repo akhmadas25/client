@@ -62,21 +62,24 @@ const Router = () => {
   useEffect(() => {
     checkUser();
   }, []);
-  console.log(state);
 
-  return (
-    <Switch>
-      <Route path="/" exact component={Landing} />
-      <Route path="/404" exact component={PageNotFound} />
-      <Route path="/home" exact component={Home} />
-      <Route path="/admin/literaturs" exact component={Literaturs} />
-      <Route path="/addLiteratur" exact component={AddLiteratur} />
-      <Route path="/myCollection" exact component={Collection} />
-      <Route path="/detail" exact component={DetailLiteratur} />
-      <Route path="/search" exact component={SearchPage} />
-      
-    </Switch>
-  );
+
+  if (state.isLoading) {
+    return <p>loading</p>;
+  } else {
+    return (
+      <Switch>
+        <Route path="/" exact component={Landing} />
+        <Route path="/404" exact component={PageNotFound} />
+        <PrivateRoute path="/home" exact component={Home} />
+        <AdminRoute path="/admin/literaturs" exact component={Literaturs} />
+        <PrivateRoute path="/addLiteratur" exact component={AddLiteratur} />
+        <PrivateRoute path="/myCollection" exact component={Collection} />
+        <PrivateRoute path="/detail" exact component={DetailLiteratur} />
+        <PrivateRoute path="/search" exact component={SearchPage} />
+      </Switch>
+    );
+  }
 };
 
 export default Router;
