@@ -23,9 +23,6 @@ h1.jumbotron {
   cursor: pointer !important;
 }
 
-.search {
-  margin-top: -10;
-}
 
 input:placeholder-shown {
   background-color:  #ffffff!important;

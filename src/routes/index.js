@@ -13,7 +13,7 @@ import Literaturs from "../pages/admin/Literaturs";
 import AddLiteratur from "../pages/user/AddLiteratur";
 import Collection from "../pages/user/Collection";
 import DetailLiteratur from "../pages/user/DetailLiteratur";
-import SearchPage from "../pages/user/SearchPage";
+import SearchPage from "../components/SearchPage";
 import Profile from "../pages/user/Profile";
 
 if (localStorage.token) {

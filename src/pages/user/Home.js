@@ -1,43 +1,88 @@
 import React, { useContext, useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import logo from "../../assets/image/icon.png";
+import searchButton from "../../assets/icon/search.png";
+import view from "../../assets/image/view.png";
 import "../../assets/stylesheets/home.css";
 import { UserContext } from "../../context/userContext";
+import { API } from "../../config/api";
+import SearchPage from "../../components/SearchPage";
 
 function Home() {
-  const [state, dispatch] = useContext(UserContext);
+  const [literaturs, setLiteraturs] = useState([]);
   const [result, setResult] = useState([]);
-  const [title, setTitle] = useState("")
+  const [form, setForm] = useState({
+    title: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({
+      [e.target.name]: [e.target.value],
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      const body = JSON.stringify(form);
+      const response = await API.post("/literaturs/search", body, config);
+      setResult(response.data.literaturs);
+      getLiteraturs();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getLiteraturs = () => {
+    setLiteraturs(result);
+  };
+
+  console.log();
 
   useEffect(() => {
-    // setResult({
-    //   coba: "coba"
-    // })
-    
-  }, [])
-  
- 
+    getLiteraturs();
+  }, []);
+
   return (
     <div className="container-fluid main bg-dark text-light">
       <div className="ms-3 me-3">
         <Navbar />
-        <div className="container header text-center">
-          <img src={logo} alt={logo} style={{ height: 100 }} />
-          <div class="row justify-content-center">
-            <div class="col-md-5">
-              {result.length>1 ? (
-              <>
-              <h1 className="text-center">contoh</h1>
-              </>
-              ) : (<input
-                type="text"
-                class="form-control"
-                placeholder="search for literation"
-              />) }
-              
+        {literaturs.length < 1 ? (
+          <>
+            <div className="container header text-center">
+              <img src={logo} alt={logo} style={{ height: 100 }} />
+              <form onSubmit={handleSubmit}>
+                <div class="row justify-content-center">
+                  <div class="col-md-5">
+                    <input
+                      type="text"
+                      className="form-control bg-secondary"
+                      placeholder="search for literation"
+                      name="title"
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="col-md-1 ms-0">
+                    <button type="submit" className="btn btn-danger">
+                      search
+                    </button>
+                  </div>
+                </div>
+              </form>
             </div>
-          </div>
-        </div>
+          </>
+        ) : (
+          <>
+            {literaturs?.map((item, index) => (
+              <SearchPage item={item} key={index} />
+            ))}
+          </>
+        )}
       </div>
     </div>
   );
