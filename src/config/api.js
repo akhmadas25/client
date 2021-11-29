@@ -15,3 +15,5 @@ export const setAuthToken = (token) => {
     delete API.defaults.headers.common["Authorization"];
   }
 };
+
+export const API_URL = "http://localhost:5000/";

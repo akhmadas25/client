@@ -76,7 +76,7 @@ const Router = () => {
         <AdminRoute path="/admin/literaturs" exact component={Literaturs} />
         <PrivateRoute path="/addLiteratur" exact component={AddLiteratur} />
         <PrivateRoute path="/myCollection" exact component={Collection} />
-        <PrivateRoute path="/detail" exact component={DetailLiteratur} />
+        <PrivateRoute path="/literatur/:id" exact component={DetailLiteratur} />
         <PrivateRoute path="/search" exact component={SearchPage} />
         <PrivateRoute path="/profile" exact component={Profile} />
       </Switch>
