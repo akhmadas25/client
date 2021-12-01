@@ -15,13 +15,15 @@ import Collection from "../pages/user/Collection";
 import DetailLiteratur from "../pages/user/DetailLiteratur";
 import SearchPage from "../components/SearchPage";
 import Profile from "../pages/user/Profile";
+import { createBrowserHistory } from "history";
+import DetailCollection from "../pages/user/DetailCollection";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
 const Router = () => {
-  let history = useHistory();
+  let history = createBrowserHistory();
   const [state, dispatch] = useContext(UserContext);
   console.clear();
 
@@ -76,6 +78,7 @@ const Router = () => {
         <AdminRoute path="/admin/literaturs" exact component={Literaturs} />
         <PrivateRoute path="/addLiteratur" exact component={AddLiteratur} />
         <PrivateRoute path="/myCollection" exact component={Collection} />
+        <PrivateRoute path="/collection/:id" exact component={DetailCollection} />
         <PrivateRoute path="/literatur/:id" exact component={DetailLiteratur} />
         <PrivateRoute path="/search" exact component={SearchPage} />
         <PrivateRoute path="/profile" exact component={Profile} />

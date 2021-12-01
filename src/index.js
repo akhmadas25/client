@@ -6,9 +6,10 @@ import reportWebVitals from "./reportWebVitals";
 import { UserContextProvider } from "./context/userContext";
 import Router from "./routes";
 
+
 ReactDOM.render(
   <UserContextProvider>
-    <BrowserRouter>
+    <BrowserRouter >
       <Router />
     </BrowserRouter>
   </UserContextProvider>,

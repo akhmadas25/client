@@ -3,11 +3,11 @@ import mail from "../assets/icon/mail.png";
 import phone from "../assets/icon/phone.png";
 import gender from "../assets/icon/gender.png";
 import location from "../assets/icon/location.png";
-import image from "../assets/image/profile.jpg";
 import "../assets/stylesheets/home.css";
-import { API, API_URL } from "../config/api";
+import { API, PATH_FILE } from "../config/api";
+import swal from "sweetalert";
 
-function CardProfile() {
+function CardProfile(props) {
   const [profile, setProfile] = useState([]);
   const [preview, setPreview] = useState(null);
   const [form, setForm] = useState({
@@ -18,7 +18,7 @@ function CardProfile() {
   });
   const getProfile = async () => {
     try {
-      const response = await API.get("/profile/literatur");
+      const response = await API.get("/profile");
       setProfile(response.data.profile);
     } catch (error) {
       console.log(error);
@@ -55,16 +55,23 @@ function CardProfile() {
       formData.set("email", form.email);
       formData.set("phone", form.phone);
       const response = await API.post("/changeProfile", formData, config);
-      console.log(response);
       getProfile();
+      swal({
+        title: response.data.message,
+        icon: "success",
+      });
     } catch (error) {
       console.log(error);
+      swal({
+        title: "server error",
+        icon: "danger",
+      });
     }
   };
 
   useEffect(() => {
     getProfile();
-  }, []);
+  }, [props.location]);
 
   return (
     <div>
@@ -126,7 +133,7 @@ function CardProfile() {
               <div className="col-md-2 text-end">
                 <div className="row mt-3">
                   <img
-                    src={API_URL + "uploads/" + item.picture}
+                    src={PATH_FILE + item.picture}
                     alt="picture"
                   />
                   <button
@@ -162,13 +169,6 @@ function CardProfile() {
                       name="email"
                       onChange={handleChange}
                     />
-                    {/* <input
-                    className="form-control bg-secondary mt-3"
-                    placeholder="male"
-                    type="text"
-                    name="gender"
-                    onChange={handleChange}
-                  /> */}
                     <input
                       className="form-control bg-secondary mt-3"
                       placeholder={item.phone}
@@ -205,7 +205,7 @@ function CardProfile() {
                     ) : (
                       <div className="preview text-center mt-5">
                         <img
-                          src={API_URL + "uploads/" + item.picture}
+                          src={PATH_FILE + item.picture}
                           alt="picture"
                           style={{ height: "25vh" }}
                         />
@@ -220,7 +220,11 @@ function CardProfile() {
                     >
                       Close
                     </button>
-                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+                    <button
+                      type="submit"
+                      class="btn btn-primary"
+                      data-bs-dismiss="modal"
+                    >
                       Save changes
                     </button>
                   </div>

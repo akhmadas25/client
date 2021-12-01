@@ -1,5 +1,5 @@
 .main {
-  min-height: 100vh;
+  min-height: 110vh;
 }
 
 .navbar-user {
@@ -7,12 +7,12 @@
 }
 
 .header {
-    font-family: 'Times New Roman', Times, serif;
-    margin-top: 10vh;
+  font-family: "Times New Roman", Times, serif;
+  margin-top: 10vh;
 }
 
 h1.jumbotron {
-    font: bold 80px/100px Times, serif;
+  font: bold 80px/100px Times, serif;
 }
 
 .navbar .navbar-nav .nav-link {
@@ -23,12 +23,15 @@ h1.jumbotron {
   cursor: pointer !important;
 }
 
+.title {
+  cursor: pointer !important;
+}
 
 input:placeholder-shown {
-  background-color:  #ffffff!important;
+  background-color: #ffffff !important;
   color: #ffffff !important;
 }
 
 .card {
-  background:rgba(255,255,255, 0.1);
+  background: rgba(255, 255, 255, 0.1);
 }

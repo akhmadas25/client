@@ -1,19 +1,22 @@
 import React, { useContext, useEffect } from "react";
-
 import logo from "../assets/image/icon.png";
 import { UserContext } from "../context/userContext";
-import { useHistory } from "react-router";
+import { Redirect, useHistory } from "react-router";
 import logout from "../assets/icon/logout.png";
 import "../assets/stylesheets/home.css";
+import { Link } from "react-router-dom";
+
 
 function Navbar() {
   const history = useHistory();
+  const [state, dispatch] = useContext(UserContext);
   const Logout = () => {
     dispatch({ type: "LOGOUT" });
     history.push("/");
   };
-  const [state, dispatch] = useContext(UserContext);
-  console.log(state);
+  useEffect(() =>{
+    console.log(state);
+  },[])
 
   if (state.user.status === "admin") {
     return (
@@ -57,10 +60,10 @@ function Navbar() {
       <nav class="navbar navbar-user navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
           <div class="navbar-nav">
-            <a class="nav-link" onClick={() => history.push("/profile")}>
+          <a class="nav-link" onClick={() => window.location="/profile"}>
               Profile
             </a>
-            <a class="nav-link" onClick={() => history.push("/myCollection")}>
+            <a class="nav-link" onClick={() => window.location="/myCollection"}>
               My Collection
             </a>
             <a class="nav-link" onClick={() => history.push("/addLiteratur")}>
@@ -71,7 +74,12 @@ function Navbar() {
             </a>
           </div>
           <div className="text-end">
-            <img src={logo} alt={logo} style={{ height: 50 }} />
+            <img
+              src={logo}
+              alt={logo}
+              style={{ height: 50 }}
+              onClick={() => history.push("/home")}
+            />
           </div>
         </div>
       </nav>
