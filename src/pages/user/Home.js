@@ -1,27 +1,23 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import logo from "../../assets/image/icon.png";
 import searchButton from "../../assets/icon/search.png";
-import view from "../../assets/image/view.png";
 import "../../assets/stylesheets/home.css";
-import { UserContext } from "../../context/userContext";
 import { API } from "../../config/api";
 import SearchPage from "../../components/SearchPage";
-import { createBrowserHistory } from "history";
 
 function Home() {
   const [literaturs, setLiteraturs] = useState([]);
   const [result, setResult] = useState([]);
-  const [form, setForm] = useState({
-    title: "",
-    year: "",
-  });
+  const [year, setYear] = useState("");
+  const [title, setTitle] = useState("");
 
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: [e.target.value],
-    });
+  const handleChangeTitle = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const handleChangeYear = (e) => {
+    setYear(e.target.value);
   };
 
   const handleSubmit = async (e) => {
@@ -32,53 +28,58 @@ function Home() {
           "Content-type": "application/json",
         },
       };
-      const body = JSON.stringify(form);
+      const data = {
+        title: title,
+        year: year,
+      };
+      const body = JSON.stringify(data);
+
       const response = await API.post("/literaturs/search", body, config);
       console.log(response);
       setLiteraturs(response.data.literaturs);
       setResult(response.data.literaturs);
-      // getLiteraturs();
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleYear = async (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: [e.target.value],
-    });
+    e.preventDefault();
+    setYear(e.target.value);
+    const data = {
+      title: title,
+      year: year,
+    };
+    const body = JSON.stringify(data);
+
     const config = {
       headers: {
         "Content-type": "application/json",
       },
     };
-    const body = JSON.stringify(form);
+
     const response = await API.post("/literaturs/search", body, config);
     console.log(response);
     setLiteraturs(response.data.literaturs);
-    // getLiteraturs();
   };
 
-  const filterYear = async (e) => {
-    e.preventDefault();
+  const getLiteraturs = async () => {
+    const data = {
+      title: "",
+      year: "",
+    };
+    const body = JSON.stringify(data);
+
     const config = {
       headers: {
         "Content-type": "application/json",
       },
     };
-    const body = JSON.stringify(form);
+
     const response = await API.post("/literaturs/search", body, config);
-    console.log(response);
-    setResult(response.data.literaturs);
-    getLiteraturs();
-  };
 
-  const getLiteraturs = async () => {
-    setLiteraturs(result);
+    setLiteraturs(response.data.literaturs);
   };
-
-  console.log(form);
 
   useEffect(() => {
     getLiteraturs();
@@ -94,18 +95,25 @@ function Home() {
               <img src={logo} alt={logo} style={{ height: 100 }} />
               <form onSubmit={handleSubmit}>
                 <div class="row justify-content-center">
-                  <div class="col-md-5">
+                  <div class="col-md-5 pe-0">
                     <input
                       type="text"
                       className="form-control bg-secondary"
                       placeholder="search for literation"
                       name="title"
-                      onChange={handleChange}
+                      onChange={handleChangeTitle}
                     />
                   </div>
-                  <div className="col-md-1 ms-0">
-                    <button type="submit" className="btn btn-danger">
-                      search
+                  <div className="col-md-1 ps-0">
+                    <button
+                      type="submit"
+                      style={{ backgroundColor: "transparent", border: "none" }}
+                    >
+                      <img
+                        src={searchButton}
+                        alt="search-button"
+                        style={{ height: 40 }}
+                      />
                     </button>
                   </div>
                 </div>
@@ -114,23 +122,29 @@ function Home() {
           </>
         ) : (
           <>
-            <form onChange={handleYear}>
+            <form onSubmit={handleYear}>
               <div className="header my-3 ms-3 ">
                 <div className="row">
                   <div className="col-md-4 mt-3">
                     <input
                       className="form-control bg-secondary "
                       name="title"
-                      value={form.title}
+                      value={title}
                       type="text"
+                      onChange={handleChangeTitle}
                     />
                   </div>
                   <div className="col-md-1 mt-3">
-                    <img
-                      src={searchButton}
-                      alt="search-button"
-                      style={{ height: 40 }}
-                    />
+                    <button
+                      type="submit"
+                      style={{ backgroundColor: "transparent", border: "none" }}
+                    >
+                      <img
+                        src={searchButton}
+                        alt="search-button"
+                        style={{ height: 40 }}
+                      />
+                    </button>
                   </div>
                 </div>
                 <div className="row  my-5">
@@ -141,8 +155,9 @@ function Home() {
                       class="form-select bg-secondary "
                       aria-label="Default select example"
                       name="year"
-                      onChange={handleYear}
+                      onChange={handleChangeYear}
                     >
+                      <option value="">All</option>
                       <option value="2021">Since 2021</option>
                       <option value="2020">2020</option>
                       <option value="2019">2019</option>
@@ -151,11 +166,28 @@ function Home() {
                       <option value="2016">2016</option>
                     </select>
                   </div>
+
                   <div className="col-md-9 ms-3">
                     <div className="row">
-                      {literaturs?.map((item, index) => (
-                        <SearchPage item={item} key={index} />
-                      ))}
+                      {literaturs.length < 1 ? (
+                        <h4 className="mt-3">
+                          no literature found! click{" "}
+                          <i
+                            className="text-primary"
+                            style={{ cursor: "pointer" }}
+                            onClick={getLiteraturs}
+                          >
+                            this
+                          </i>{" "}
+                          to see all
+                        </h4>
+                      ) : (
+                        <>
+                          {literaturs?.map((item, index) => (
+                            <SearchPage item={item} key={index} />
+                          ))}
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>

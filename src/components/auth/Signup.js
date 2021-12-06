@@ -54,9 +54,9 @@ function Signup() {
       });
       // Status check
       if (response.data.data.status === "admin") {
-        history.push("/admin/literaturs");
+        window.location = "/admin/literaturs";
       } else {
-        history.push("/home");
+        window.location = "/home";
       }
     } catch (error) {
       console.log(error);
@@ -91,7 +91,12 @@ function Signup() {
               <form onSubmit={handleSubmit}>
                 <div class="modal-header">
                   <h3>Sign Up</h3>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
                 </div>
                 <div className="row text-center mt-3 mx-2">
                   <div className="col text-light">
@@ -102,6 +107,7 @@ function Signup() {
                       name="fullname"
                       onChange={onChange}
                       placeholder="fullname"
+                      required
                     />
                     <input
                       class="form-control bg-secondary mt-3"
@@ -110,6 +116,7 @@ function Signup() {
                       name="email"
                       onChange={onChange}
                       placeholder="email"
+                      required
                     />
                     <input
                       class="form-control bg-secondary mt-3"
@@ -118,6 +125,7 @@ function Signup() {
                       value={password}
                       onChange={onChange}
                       placeholder="password"
+                      required
                     />
                     <input
                       class="form-control bg-secondary mt-3"
@@ -125,6 +133,8 @@ function Signup() {
                       value={phone}
                       name="phone"
                       onChange={onChange}
+                      maxLength="13"
+                      required
                       placeholder="number"
                     />
                     <input
@@ -133,6 +143,7 @@ function Signup() {
                       value={address}
                       name="address"
                       onChange={onChange}
+                      required
                       placeholder="address"
                     />
                   </div>
@@ -141,7 +152,8 @@ function Signup() {
                   <button
                     type="submit"
                     class="btn btn-danger"
-                    data-bs-dismiss="modal" aria-label="Close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
                     style={{ width: 430 }}
                   >
                     Sign Up

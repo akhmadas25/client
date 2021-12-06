@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router";
 import { PATH_FILE } from "../config/api";
-import "../assets/stylesheets/home.css"
+import "../assets/stylesheets/home.css";
 
 function SearchPage({ item }) {
   const history = useHistory();
@@ -23,11 +23,14 @@ function SearchPage({ item }) {
         {item.title}
       </h3>
       <div className="row">
-        <div className="col-md-5">
-          <h4 className="text-secondary">{item.author}</h4>
-        </div>
         <div className="col-md-6">
-          <h4 className="text-secondary text-end">{item.publication_date}</h4>
+          <h4 className="text-secondary autthor">{item.author}</h4>
+        </div>
+        <div className="col" />
+        <div className="col-md-4">
+          <h4 className="text-secondary text-end author">
+            {item.publication_date}
+          </h4>
         </div>
       </div>
     </div>

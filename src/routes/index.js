@@ -17,15 +17,21 @@ import SearchPage from "../components/SearchPage";
 import Profile from "../pages/user/Profile";
 import { createBrowserHistory } from "history";
 import DetailCollection from "../pages/user/DetailCollection";
+import ForgotPassword from "../pages/user/ForgotPassword";
+import ResetPassword from "../pages/user/ResetPassword";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
 const Router = () => {
-  let history = createBrowserHistory();
   const [state, dispatch] = useContext(UserContext);
   console.clear();
+  useEffect(() => {
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
+  }, [state]);
 
   const checkUser = async () => {
     try {
@@ -66,19 +72,28 @@ const Router = () => {
     checkUser();
   }, []);
 
-
   if (state.isLoading) {
     return <p>loading</p>;
   } else {
     return (
       <Switch>
         <Route path="/" exact component={Landing} />
+        <Route path="/forgot-password" exact component={ForgotPassword} />
+        <Route
+          path="/reset-password/:id/:token"
+          exact
+          component={ResetPassword}
+        />
         <Route path="/404" exact component={PageNotFound} />
         <PrivateRoute path="/home" exact component={Home} />
         <AdminRoute path="/admin/literaturs" exact component={Literaturs} />
         <PrivateRoute path="/addLiteratur" exact component={AddLiteratur} />
         <PrivateRoute path="/myCollection" exact component={Collection} />
-        <PrivateRoute path="/collection/:id" exact component={DetailCollection} />
+        <PrivateRoute
+          path="/collection/:id"
+          exact
+          component={DetailCollection}
+        />
         <PrivateRoute path="/literatur/:id" exact component={DetailLiteratur} />
         <PrivateRoute path="/search" exact component={SearchPage} />
         <PrivateRoute path="/profile" exact component={Profile} />

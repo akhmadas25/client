@@ -135,13 +135,16 @@ function DetailLiteratur() {
               <div className="col-md-1" />
               <div className="col-md-3 text-end pe-5">
                 {item.userId === state.user.id ? (
-                  <button
-                    className="btn btn-danger text-light"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modalEdit"
-                  >
-                    edit
-                  </button>
+                  <>
+                    {/* <button
+                      type="button"
+                      class="btn btn-danger px-3"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                    >
+                      edit
+                    </button> */}
+                  </>
                 ) : (
                   <button
                     className="btn btn-danger text-light"

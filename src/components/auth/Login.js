@@ -3,6 +3,7 @@ import { useHistory } from "react-router";
 import { API } from "../../config/api";
 import { UserContext } from "../../context/userContext";
 import swal from "sweetalert";
+import { Link } from "react-router-dom";
 
 function Login() {
   let history = useHistory();
@@ -49,9 +50,9 @@ function Login() {
           type: "ADMIN_SUCCESS",
           payload: response.data.data,
         });
-        history.push("/admin/literaturs");
+        window.location = "/admin/literaturs";
       } else {
-        history.push("/home");
+        window.location = "/home";
       }
     } catch (error) {
       console.log(error);
@@ -63,7 +64,9 @@ function Login() {
     }
   };
 
-  useEffect(() => {}, [state]);
+  useEffect(() => {
+    console.log(state);
+  }, []);
 
   return (
     <>
@@ -121,6 +124,9 @@ function Login() {
                   >
                     Login
                   </button>
+                  <Link onClick={() => (window.location = "/forgot-password")}>
+                    forgot password?
+                  </Link>
                 </div>
               </form>
             </div>

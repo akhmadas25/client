@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import Navbar from "../../components/Navbar";
 import "../../assets/stylesheets/table.css";
-import { API } from "../../config/api";
+import { API, PATH_FILE } from "../../config/api";
 import swal from "sweetalert";
 
 function Literaturs() {
@@ -40,6 +40,10 @@ function Literaturs() {
         const body = JSON.stringify(data);
         await API.patch(`/literatur/${id}`, body, config);
         getLiteraturs();
+        swal({
+          title: "successfully aproved",
+          icon: "success",
+        });
       } catch (error) {
         console.log(error);
       }
@@ -58,6 +62,10 @@ function Literaturs() {
         const body = JSON.stringify(data);
         await API.patch(`/literatur/${id}`, body, config);
         getLiteraturs();
+        swal({
+          title: "canceled",
+          icon: "warning",
+        });
       } catch (error) {
         console.log(error);
       }
@@ -120,7 +128,12 @@ function Literaturs() {
                 <td>{item.author}</td>
                 <td>{item.ISBN}</td>
                 <td>
-                  <p className="text-primary">{item.title}</p>
+                  <p
+                    className="text-primary"
+                    onClick={() => window.open(PATH_FILE + item.attach)}
+                  >
+                    {item.title}
+                  </p>
                 </td>
                 <td>
                   <Status item={item} />

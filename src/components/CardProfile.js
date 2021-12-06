@@ -7,7 +7,7 @@ import "../assets/stylesheets/home.css";
 import { API, PATH_FILE } from "../config/api";
 import swal from "sweetalert";
 
-function CardProfile(props) {
+function CardProfile() {
   const [profile, setProfile] = useState([]);
   const [preview, setPreview] = useState(null);
   const [form, setForm] = useState({
@@ -16,6 +16,7 @@ function CardProfile(props) {
     address: "",
     picture: "",
   });
+
   const getProfile = async () => {
     try {
       const response = await API.get("/profile");
@@ -71,7 +72,7 @@ function CardProfile(props) {
 
   useEffect(() => {
     getProfile();
-  }, [props.location]);
+  }, []);
 
   return (
     <div>
@@ -132,10 +133,7 @@ function CardProfile(props) {
               <div className="col-md-4" />
               <div className="col-md-2 text-end">
                 <div className="row mt-3">
-                  <img
-                    src={PATH_FILE + item.picture}
-                    alt="picture"
-                  />
+                  <img src={PATH_FILE + item.picture} alt="picture" />
                   <button
                     className="btn btn-danger mt-3"
                     data-bs-toggle="modal"
@@ -164,21 +162,22 @@ function CardProfile(props) {
                   <div class="modal-body">
                     <input
                       className="form-control bg-secondary mt-3"
-                      placeholder={item.email}
+                      value={item.email}
                       type="text"
                       name="email"
                       onChange={handleChange}
                     />
+
                     <input
                       className="form-control bg-secondary mt-3"
-                      placeholder={item.phone}
+                      value={item.phone}
                       type="text"
                       name="phone"
                       onChange={handleChange}
                     />
                     <input
                       className="form-control bg-secondary mt-3"
-                      placeholder={item.address}
+                      value={item.address}
                       type="text"
                       name="address"
                       onChange={handleChange}
